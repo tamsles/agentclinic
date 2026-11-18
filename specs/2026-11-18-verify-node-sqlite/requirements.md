@@ -15,6 +15,7 @@
 - 写 `tests/sqlite.test.ts`,保留在仓库里
 - 新建 `src/app.ts`(Hono 应用,只有 `GET /`)并改写 `src/index.ts`(启动服务,读 `PORT`)
 - 写 `tests/home.test.ts`,用 `app.request()` 测首页
+- 基础样式表做成响应式、手机优先,并加测试检查响应式规则(viewport 标签、媒体查询等)
 - 更新 tech-stack.md 和 roadmap.md
 
 不做:
@@ -42,6 +43,7 @@
 | 首页是否连库 | 不连 | 保持首页独立于数据库驱动验证的结果 |
 | 布局组件拆分 | `Header`、`Main`、`Footer` 各占一个文件(`src/views/header.ts`、`main.ts`、`footer.ts`),由 `layout.ts` 的 `Layout` 组合 | 每个组件职责单一、好找好改;以后换成 JSX 时可以逐个文件迁移 |
 | 样式表 | `public/styles.css`,由 `app.ts` 读入并通过 `GET /styles.css` 提供,页面用 `<link>` 引用 | `tsc` 不会把 CSS 复制到 `dist/`,所以不放 `src/`;只写基础布局,主题留给第 17 步 |
+| 响应式 | 网页必须响应式,手机优先:`<head>` 有 viewport 标签,基础样式针对 320px,用 `@media (min-width: 48em)` 给宽屏加间距 | 产品规定(tech-stack.md "响应式设计");首页是第一个网页,从一开始就做对,比以后补改省事 |
 
 ## 首页内容
 
@@ -49,6 +51,7 @@
 - 一句话介绍:给 AI agent 看病的恶搞诊所
 - 页脚:请勿提交敏感信息(specs/mission.md 要求页面有此提醒)
 - 样式:不做主题设计,只要能读;医院主题布局留给第 17 步
+- 响应式:手机、平板、电脑都能读,320px 宽没有横向滚动条,可点击的品牌链接至少 44px 高
 
 ## 背景
 
@@ -67,6 +70,6 @@
 
 ## 参考
 
-- specs/mission.md:本地运行、`npm install` 加 `npm start` 能跑、页面提醒请勿提交敏感信息
-- specs/tech-stack.md:"选型"和"待验证"两节、架构、"测试"原则(不访问网络、每个测试独立内存库)
+- specs/mission.md:本地运行、`npm install` 加 `npm start` 能跑、页面提醒请勿提交敏感信息、网页响应式
+- specs/tech-stack.md:"选型"和"待验证"两节、架构、"响应式设计"、"测试"原则(不访问网络、每个测试独立内存库)
 - specs/roadmap.md:阶段 A 第 1、2、3 步

@@ -1,23 +1,52 @@
-/* Basic readable three-part layout. Hospital theme comes later (roadmap step 17). */
+/*
+ * Responsive, mobile-first layout (see specs/tech-stack.md "响应式设计").
+ * Base rules target the smallest screens (320px wide); media queries only add
+ * room for wider screens. Hospital theme comes later (roadmap step 17).
+ */
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
   line-height: 1.6;
   color: #1f2933;
   background: #ffffff;
+  overflow-wrap: break-word;
+}
+
+/* Media and wide content never push the page wider than the screen. */
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  line-height: 1.25;
 }
 
 .site-header,
 .site-footer {
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 1rem;
   background: #e8f1f8;
 }
 
@@ -35,7 +64,11 @@ body {
   margin: 0;
 }
 
+/* At least 44px tall so it is easy to tap on a touch screen. */
 .brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   font-size: 1.25rem;
   font-weight: 700;
   color: inherit;
@@ -47,5 +80,17 @@ body {
   width: 100%;
   max-width: 48rem;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1rem;
+}
+
+/* Tablets and up. */
+@media (min-width: 48em) {
+  .site-header,
+  .site-footer {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .site-main {
+    padding: 2.5rem 1.5rem;
+  }
 }

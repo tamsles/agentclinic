@@ -3,7 +3,10 @@
 规则:
 
 - 每一步只做一个功能,能在一次对话里做完并验证
-- 按顺序做;每步结束时 `npm test` 全绿,项目能跑
+- 按顺序做;每步结束时 `npm run validate`(类型检查加 Vitest 测试)通过,项目能跑
+- 每步的"完成"条件都要有对应的 Vitest 测试来验证
+- 凡是涉及网页的步骤(第 17 到 21 步)都要符合响应式设计(见 tech-stack.md "响应式设计"):
+  手机优先,320px 宽不出现横向滚动条;完成前用浏览器设备模式手动看 320px、768px、1280px
 - 做完一步,勾上 checkbox
 - 阶段 0(TypeScript 骨架和首次提交)已完成
 
@@ -12,8 +15,8 @@
 - [x] **1. 验证 `node:sqlite`**
   完成:一个 Vitest 测试能打开内存库、建表、写入、读出;不通过则改用 `better-sqlite3` 并更新 tech-stack.md
 - [ ] **2. 工具链**
-  完成:装好 Hono、Vitest、tsx;`npm run dev`、`npm test`、`npm run typecheck` 都能运行
-  > 已在第 1 步的分支提前完成:Hono 和 Vitest 已装。tsx、`dev`、`typecheck` 还没做。
+  完成:装好 Hono、Vitest、tsx;`npm run dev`、`npm test`、`npm run typecheck`、`npm run validate` 都能运行
+  > 已提前完成:Hono 和 Vitest 已装;`test`、`typecheck`、`validate` 脚本已有,`tsconfig.json` 已覆盖 `tests/`(构建改用 `tsconfig.build.json`)。tsx 和 `dev` 还没做。
 - [ ] **3. 健康检查**
   完成:`src/app.ts` 与 `src/index.ts` 分开,`GET /health` 返回 200,有一个用 `app.request()` 的测试;端口读 `PORT`,加上请求日志,`.gitignore` 加 `data/`
   > 已在第 1 步的分支提前完成:`app.ts` 与 `index.ts` 已分开,`PORT` 已读取(默认 3000)。`/health`、请求日志、`.gitignore` 加 `data/` 还没做。
@@ -53,8 +56,8 @@
 ## 阶段 D:公开网页
 
 - [ ] **17. JSX 配置和页面布局**
-  完成:tsconfig 配好 JSX,`GET /` 返回带医院主题布局的页面,页脚有"请勿提交敏感信息",测试返回 200
-  > 已在第 1 步的分支提前完成:`Header`、`Main`、`Footer` 三个子组件(各占一个文件,字符串版,非 JSX)和 `Layout`,基础样式表 `public/styles.css`,页脚提醒,首页测试。JSX 配置和医院主题还没做。
+  完成:tsconfig 配好 JSX,`GET /` 返回带医院主题布局的页面(响应式,手机优先),页脚有"请勿提交敏感信息",测试返回 200
+  > 已在第 1 步的分支提前完成:`Header`、`Main`、`Footer` 三个子组件(各占一个文件,字符串版,非 JSX)和 `Layout`,基础样式表 `public/styles.css`(已是响应式、手机优先,有 viewport 标签和 `48em` 断点),页脚提醒,首页和响应式测试。JSX 配置和医院主题还没做;换主题和 JSX 时要保持响应式。
 - [ ] **18. 首页最新诊断书**
   完成:首页列出最近的诊断书(分页),不出现症状原文,测试覆盖
 - [ ] **19. 病历详情页 `/visits/:id`**
@@ -62,7 +65,7 @@
 - [ ] **20. 病名排行榜页**
   完成:按出现次数列出病名,有测试
 - [ ] **21. 恶搞错误页**
-  完成:非 `/api/` 路径的 404 和 500 返回主题错误页,500 不泄露细节
+  完成:非 `/api/` 路径的 404 和 500 返回主题错误页(用 `Layout`,响应式),500 不泄露细节
 
 ## 阶段 E:对 agent 友好和防滥用
 

@@ -42,3 +42,31 @@ describe('GET /styles.css', () => {
     expect((await res.text()).length).toBeGreaterThan(0);
   });
 });
+
+// Responsive design: layout can't be rendered in these tests, so we check the
+// rules that make it responsive. Real screen widths are checked by hand.
+describe('responsive design', () => {
+  async function getCss(): Promise<string> {
+    return (await app.request('/styles.css')).text();
+  }
+
+  it('home page sets the viewport meta tag', async () => {
+    const html = await (await app.request('/')).text();
+    expect(html).toContain(
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    );
+  });
+
+  it('stylesheet adds wide-screen rules with a min-width media query', async () => {
+    expect(await getCss()).toMatch(/@media\s*\(min-width:\s*[\d.]+(em|rem)\)/);
+  });
+
+  it('stylesheet has no fixed pixel widths', async () => {
+    // max-width / min-width in px are fine to read, but a plain `width: 800px` would overflow phones.
+    expect(await getCss()).not.toMatch(/(^|[\s;{])width:\s*\d+px/);
+  });
+
+  it('stylesheet keeps media from overflowing the screen', async () => {
+    expect(await getCss()).toMatch(/img[^{]*\{[^}]*max-width:\s*100%/);
+  });
+});

@@ -72,6 +72,11 @@
    因为 `tsc` 不会把 CSS 复制到 `dist/`):
    - 只写让页面"能读、有三段式布局"的基础样式:字体、最大宽度居中、
      header/footer 的底色和内边距、`main` 撑满剩余高度(footer 贴底)
+   - 响应式、手机优先(规则见 tech-stack.md "响应式设计"):
+     基础样式针对 320px 宽;`@media (min-width: 48em)` 里才加大间距;
+     不写固定像素的 `width`;`img`、`svg`、`video` 设 `max-width: 100%`;
+     标题字号用 `clamp()`;品牌链接至少 `2.75rem` 高;页面高度用 `100dvh`(退回 `100vh`)
+   - `layout.ts` 的 `<head>` 里要有 `<meta name="viewport" content="width=device-width, initial-scale=1">`
    - 不做医院主题设计(第 17 步)
 3. 在 `src/app.ts` 里"导入"样式表并提供链接地址:
    - 用 `node:fs` 的 `readFileSync` 和 `node:path` 的 `join(__dirname, '../public/styles.css')` 读入 CSS 文本
@@ -83,10 +88,15 @@
    - 页面里依次出现 `<header`、`<main`、`<footer`
    - 页面含 `<link rel="stylesheet" href="/styles.css">`
    - `GET /styles.css` 返回 200,`Content-Type` 含 `text/css`,内容非空
+   - 响应式测试(布局本身测不出来,只检查让它响应式的规则):
+     页面含 viewport 标签;样式表含 `@media (min-width: ...)`;
+     样式表没有固定像素的 `width`;样式表里 `img` 设了 `max-width: 100%`
    - 原有 3 个测试保持不变且仍然通过
-5. 运行 `npm test` 和 `npm run build`,都要通过
+5. 运行 `npm run validate`(类型检查加测试)和 `npm run build`,都要通过
 6. 手动检查:`npm run build` 后 `npm start`,浏览器打开 `http://localhost:3000/`,
-   看到顶部品牌名、中间内容、底部提醒,并且样式生效(开发者工具里 `styles.css` 为 200);然后停掉服务
+   看到顶部品牌名、中间内容、底部提醒,并且样式生效(开发者工具里 `styles.css` 为 200);
+   再打开开发者工具的设备模式,分别看 320px、768px、1280px 宽:
+   没有横向滚动条,文字不用放大就能读,页脚始终贴底;然后停掉服务
 
 ## 6. 更新文档并收尾
 
