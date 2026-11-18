@@ -25,7 +25,13 @@
       "依赖都还没装"一句已改成实际状态
 - [ ] roadmap.md 第 1 步已勾选;第 2、3 步下面有"已在本分支提前完成"的备注,但没有勾选
 - [ ] 改动只包含:`package.json`、`package-lock.json`、`src/app.ts`、`src/index.ts`、
+      `src/views/header.ts`、`src/views/main.ts`、`src/views/footer.ts`、`src/views/layout.ts`、
+      `public/styles.css`、
       `tests/sqlite.test.ts`、`tests/home.test.ts`、tech-stack.md、roadmap.md 和本目录
+- [ ] `Header`、`Main`、`Footer` 三个子组件各自在独立文件里(`header.ts`、`main.ts`、`footer.ts`),
+      互不引用;`layout.ts` 从这三个文件导入并拼成 `Layout`,`app.ts` 只引入 `Layout`
+- [ ] 首页由 `Layout` 拼出三个子组件,`<head>` 里链接 `/styles.css`,
+      `GET /styles.css` 返回 `text/css`
 - [ ] 没有装 tsx,没有新增 `dev`、`typecheck` 脚本,没有改 `tsconfig.json`
 - [ ] 没有 `/health`、请求日志、错误处理、JSX(这些属于后面的步骤)
 - [ ] 首页没有连数据库,没有生成 `data/` 下的库文件(测试只用内存库)

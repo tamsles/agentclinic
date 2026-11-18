@@ -40,6 +40,8 @@
 | 端口 | 读 `PORT`,默认 3000 | tech-stack.md 已规定 |
 | 运行方式 | `npm run build` 后 `npm start` | 不装 tsx,`npm run dev` 留给第 2 步 |
 | 首页是否连库 | 不连 | 保持首页独立于数据库驱动验证的结果 |
+| 布局组件拆分 | `Header`、`Main`、`Footer` 各占一个文件(`src/views/header.ts`、`main.ts`、`footer.ts`),由 `layout.ts` 的 `Layout` 组合 | 每个组件职责单一、好找好改;以后换成 JSX 时可以逐个文件迁移 |
+| 样式表 | `public/styles.css`,由 `app.ts` 读入并通过 `GET /styles.css` 提供,页面用 `<link>` 引用 | `tsc` 不会把 CSS 复制到 `dist/`,所以不放 `src/`;只写基础布局,主题留给第 17 步 |
 
 ## 首页内容
 

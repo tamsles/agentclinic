@@ -17,4 +17,28 @@ describe('GET /', () => {
     const html = await (await app.request('/')).text();
     expect(html).toContain('请勿提交敏感信息');
   });
+
+  it('uses the header / main / footer layout in order', async () => {
+    const html = await (await app.request('/')).text();
+    const header = html.indexOf('<header');
+    const main = html.indexOf('<main');
+    const footer = html.indexOf('<footer');
+    expect(header).toBeGreaterThan(-1);
+    expect(main).toBeGreaterThan(header);
+    expect(footer).toBeGreaterThan(main);
+  });
+
+  it('links to the stylesheet', async () => {
+    const html = await (await app.request('/')).text();
+    expect(html).toContain('<link rel="stylesheet" href="/styles.css">');
+  });
+});
+
+describe('GET /styles.css', () => {
+  it('returns non-empty CSS', async () => {
+    const res = await app.request('/styles.css');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toContain('text/css');
+    expect((await res.text()).length).toBeGreaterThan(0);
+  });
 });
