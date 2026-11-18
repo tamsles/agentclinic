@@ -14,9 +14,9 @@
 
 - [x] **1. 验证 `node:sqlite`**
   完成:一个 Vitest 测试能打开内存库、建表、写入、读出;不通过则改用 `better-sqlite3` 并更新 tech-stack.md
-- [ ] **2. 工具链**
+- [x] **2. 工具链**
   完成:装好 Hono、Vitest、tsx;`npm run dev`、`npm test`、`npm run typecheck`、`npm run validate` 都能运行
-  > 已提前完成:Hono 和 Vitest 已装;`test`、`typecheck`、`validate` 脚本已有,`tsconfig.json` 已覆盖 `tests/`(构建改用 `tsconfig.build.json`)。tsx 和 `dev` 还没做。
+  > 已完成:Hono、Vitest、tsx 已装;`dev`、`test`、`typecheck`、`validate` 脚本都能运行,`tests/scripts.test.ts` 检查脚本和依赖;`tsconfig.json` 已覆盖 `tests/`(构建改用 `tsconfig.build.json`)。
 - [ ] **3. 健康检查**
   完成:`src/app.ts` 与 `src/index.ts` 分开,`GET /health` 返回 200,有一个用 `app.request()` 的测试;端口读 `PORT`,加上请求日志,`.gitignore` 加 `data/`
   > 已在第 1 步的分支提前完成:`app.ts` 与 `index.ts` 已分开,`PORT` 已读取(默认 3000)。`/health`、请求日志、`.gitignore` 加 `data/` 还没做。

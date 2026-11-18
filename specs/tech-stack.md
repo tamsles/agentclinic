@@ -14,7 +14,7 @@
 | 测试 | Vitest | |
 | 开发运行 | tsx | |
 
-已装依赖:Vitest、Hono、@hono/node-server。其余(tsx、Zod 等)到对应路线图步骤再装。
+已装依赖:Vitest、Hono、@hono/node-server、tsx。其余(Zod 等)到对应路线图步骤再装。
 
 **已验证**:`node:sqlite` 能在 Vitest 里使用(Node v26.13.1,Vitest 5.1.1;
 内存库建表、带参数写入、读出、`CREATE TABLE IF NOT EXISTS` 重复执行都通过,
