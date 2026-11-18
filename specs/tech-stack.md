@@ -13,10 +13,12 @@
 | 测试 | Vitest | |
 | 开发运行 | tsx | |
 
-依赖都还没装,到对应路线图步骤再装。
+已装依赖:Vitest、Hono、@hono/node-server。其余(tsx、Zod 等)到对应路线图步骤再装。
 
-**待验证**:`node:sqlite` 能否在 Vitest 里使用(建内存库、建表、写入、读出)。
-通过就用,不通过换 `better-sqlite3` 并更新本文档。
+**已验证**:`node:sqlite` 能在 Vitest 里使用(Node v26.13.1,Vitest 5.1.1;
+内存库建表、带参数写入、读出、`CREATE TABLE IF NOT EXISTS` 重复执行都通过,
+测试输出没有 ExperimentalWarning)。结论:数据库驱动用 `node:sqlite`,不换库。
+验证测试保留在 `tests/sqlite.test.ts`,以后升级 Node 时可重跑。
 
 ## 架构
 
