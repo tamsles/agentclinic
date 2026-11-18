@@ -4,7 +4,12 @@ import { Header } from './header';
 import { Main } from './main';
 import { Footer } from './footer';
 
-export function Layout(props: { title: string; content: string }): string {
+export type LayoutProps = {
+  title: string;
+  content: string;
+};
+
+export function Layout(props: LayoutProps): string {
   return `<!doctype html>
 <html lang="zh-CN">
 <head>
